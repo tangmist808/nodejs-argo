@@ -1,966 +1,945 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeFlow | Visual Development Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9fbfd;
-        }
-        
-        h1, h2, h3, h4 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header & Navigation */
-        header {
-            background-color: #fff;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-icon {
-            color: #4361ee;
-            font-size: 28px;
-            margin-right: 10px;
-        }
-        
-        .logo-text {
-            font-family: 'Poppins', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: #333;
-        }
-        
-        .logo-text span {
-            color: #4361ee;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 30px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: #555;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: #4361ee;
-        }
-        
-        .cta-button {
-            background-color: #4361ee;
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        
-        .cta-button:hover {
-            background-color: #3a56d4;
-            transform: translateY(-2px);
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #333;
-            cursor: pointer;
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 150px 0 100px;
-            background: linear-gradient(135deg, #f0f4ff 0%, #f9fbfd 100%);
-        }
-        
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .hero-text {
-            flex: 1;
-            padding-right: 40px;
-        }
-        
-        .hero-text h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #222;
-        }
-        
-        .hero-text h1 span {
-            color: #4361ee;
-        }
-        
-        .hero-text p {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 30px;
-            max-width: 600px;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .secondary-button {
-            background-color: white;
-            color: #4361ee;
-            border: 2px solid #4361ee;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .secondary-button:hover {
-            background-color: #f0f4ff;
-        }
-        
-        .hero-image {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .hero-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(67, 97, 238, 0.15);
-        }
-        
-        /* Features Section */
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 36px;
-            color: #222;
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .features {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .feature-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-icon {
-            background-color: #eef2ff;
-            color: #4361ee;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 28px;
-        }
-        
-        .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card p {
-            color: #666;
-        }
-        
-        /* Benefits Section */
-        .benefits {
-            padding: 100px 0;
-            background-color: #f0f4ff;
-        }
-        
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .benefit-item {
-            text-align: center;
-            padding: 30px 20px;
-        }
-        
-        .benefit-icon {
-            color: #4361ee;
-            font-size: 40px;
-            margin-bottom: 20px;
-        }
-        
-        .benefit-item h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .benefit-item p {
-            color: #666;
-        }
-        
-        /* Testimonials */
-        .testimonials {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .testimonial-slider {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .testimonial {
-            background: #f9fbfd;
-            padding: 40px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .testimonial-text {
-            font-size: 18px;
-            font-style: italic;
-            margin-bottom: 30px;
-            color: #555;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #ddd;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #4361ee;
-            font-size: 24px;
-        }
-        
-        .author-info h4 {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-        
-        .author-info p {
-            color: #777;
-            font-size: 14px;
-        }
-        
-        /* Pricing Section */
-        .pricing {
-            padding: 100px 0;
-            background-color: #f9fbfd;
-        }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        
-        .pricing-card {
-            background: white;
-            border-radius: 10px;
-            padding: 40px 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        .pricing-card.featured {
-            border-top: 5px solid #4361ee;
-            transform: scale(1.05);
-            position: relative;
-        }
-        
-        .featured-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #4361ee;
-            color: white;
-            padding: 5px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        
-        .pricing-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-10px);
-        }
-        
-        .plan-name {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .plan-price {
-            font-size: 48px;
-            font-weight: 700;
-            color: #4361ee;
-            margin-bottom: 20px;
-        }
-        
-        .plan-price span {
-            font-size: 16px;
-            color: #777;
-        }
-        
-        .plan-features {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .plan-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            color: #555;
-        }
-        
-        .plan-features li:last-child {
-            border-bottom: none;
-        }
-        
-        /* CTA Section */
-        .cta-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #4361ee 0%, #3a56d4 100%);
-            text-align: center;
-            color: white;
-        }
-        
-        .cta-section h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-        
-        .cta-section p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
-        }
-        
-        .cta-section .cta-button {
-            background-color: white;
-            color: #4361ee;
-            font-size: 16px;
-            padding: 15px 40px;
-        }
-        
-        .cta-section .cta-button:hover {
-            background-color: #f0f4ff;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #222;
-            color: #ccc;
-            padding: 70px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-        
-        .footer-column h3 {
-            font-size: 20px;
-            color: white;
-            margin-bottom: 25px;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: #aaa;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: #4361ee;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #444;
-            font-size: 14px;
-            color: #888;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero-content {
-                flex-direction: column;
-            }
-            
-            .hero-text {
-                padding-right: 0;
-                margin-bottom: 50px;
-                text-align: center;
-            }
-            
-            .hero-text p {
-                margin: 0 auto 30px;
-            }
-            
-            .pricing-card.featured {
-                transform: none;
-            }
-            
-            .pricing-card.featured:hover {
-                transform: translateY(-10px);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero-text h1 {
-                font-size: 36px;
-            }
-            
-            .section-title h2 {
-                font-size: 30px;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .hero-buttons button {
-                width: 100%;
-                max-width: 300px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero {
-                padding: 130px 0 80px;
-            }
-            
-            .features, .benefits, .testimonials, .pricing, .cta-section {
-                padding: 70px 0;
-            }
-            
-            .feature-card, .testimonial {
-                padding: 25px;
-            }
-            
-            .plan-price {
-                font-size: 36px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreenFuture | 绿色环保可持续发展</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --green: #1f8f5f;
+      --green-dark: #0f5f3c;
+      --green-light: #e9f7ef;
+      --lime: #b8e986;
+      --text: #22312a;
+      --muted: #6a7c70;
+      --white: #ffffff;
+      --bg: #f7fbf8;
+      --shadow: 0 20px 45px rgba(20, 85, 55, 0.12);
+      --radius: 22px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(31, 143, 95, 0.12);
+    }
+
+    nav {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: -0.4px;
+    }
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--green), #58c783);
+      display: grid;
+      place-items: center;
+      color: white;
+      box-shadow: 0 12px 25px rgba(31, 143, 95, 0.28);
+    }
+
+    .logo span {
+      color: var(--green);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+      font-size: 15px;
+      color: #3b4b41;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 0;
+      height: 2px;
+      background: var(--green);
+      transition: 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      border: 0;
+      cursor: pointer;
+      transition: 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--green), #38b66e);
+      box-shadow: 0 14px 30px rgba(31, 143, 95, 0.28);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 36px rgba(31, 143, 95, 0.34);
+    }
+
+    .btn-secondary {
+      color: var(--green-dark);
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(31, 143, 95, 0.18);
+    }
+
+    .menu-btn {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(31, 143, 95, 0.2);
+      background: white;
+      font-size: 22px;
+      color: var(--green-dark);
+      cursor: pointer;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 760px;
+      padding: 150px 0 92px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 12% 20%, rgba(184, 233, 134, 0.42), transparent 32%),
+        radial-gradient(circle at 88% 16%, rgba(70, 195, 124, 0.25), transparent 34%),
+        linear-gradient(135deg, #f5fbf5 0%, #eef8f1 50%, #f9fffb 100%);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(2px);
+      opacity: 0.8;
+    }
+
+    .hero::before {
+      width: 260px;
+      height: 260px;
+      right: -80px;
+      bottom: 60px;
+      background: rgba(184, 233, 134, 0.38);
+    }
+
+    .hero::after {
+      width: 180px;
+      height: 180px;
+      left: -70px;
+      top: 220px;
+      background: rgba(31, 143, 95, 0.13);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: 58px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      margin-bottom: 22px;
+      border-radius: 999px;
+      color: var(--green-dark);
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(31, 143, 95, 0.14);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 1.05;
+      letter-spacing: -2.5px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span {
+      color: var(--green);
+    }
+
+    .hero p {
+      max-width: 620px;
+      color: var(--muted);
+      font-size: 18px;
+      margin-bottom: 34px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 38px;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      max-width: 590px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(31, 143, 95, 0.12);
+      box-shadow: 0 12px 28px rgba(31, 143, 95, 0.07);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--green-dark);
+      font-size: 26px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .metric small {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .visual-card {
+      position: relative;
+      min-height: 520px;
+      border-radius: 36px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(15, 95, 60, 0.08), rgba(255,255,255,0.18)),
+        url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1100&q=80") center/cover;
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .visual-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 35%, rgba(7, 55, 34, 0.72) 100%);
+      z-index: -1;
+    }
+
+    .impact-panel {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      padding: 26px;
+      border-radius: 26px;
+      color: white;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      backdrop-filter: blur(16px);
+    }
+
+    .impact-panel h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .impact-list {
+      display: grid;
+      gap: 10px;
+      list-style: none;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 15px;
+    }
+
+    .floating-badge {
+      position: absolute;
+      top: 28px;
+      right: 24px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      color: var(--green-dark);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.12);
+      font-weight: 800;
+    }
+
+    section {
+      padding: 96px 0;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin: 0 auto 54px;
+      text-align: center;
+    }
+
+    .section-head .tag {
+      display: inline-block;
+      color: var(--green);
+      background: var(--green-light);
+      padding: 7px 13px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      line-height: 1.15;
+      letter-spacing: -1.4px;
+      margin-bottom: 18px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      padding: 34px;
+      border-radius: var(--radius);
+      background: var(--white);
+      border: 1px solid rgba(31, 143, 95, 0.1);
+      box-shadow: 0 12px 32px rgba(28, 84, 55, 0.07);
+      transition: 0.28s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 45px rgba(28, 84, 55, 0.12);
+    }
+
+    .icon {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      margin-bottom: 24px;
+      font-size: 28px;
+      background: linear-gradient(135deg, #eaf8ef, #d8f2df);
+    }
+
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: var(--muted);
+    }
+
+    .about {
+      background: white;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 58px;
+      align-items: center;
+    }
+
+    .about-image {
+      min-height: 490px;
+      border-radius: 34px;
+      background:
+        linear-gradient(180deg, rgba(31,143,95,0.04), rgba(15,95,60,0.36)),
+        url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1000&q=80") center/cover;
+      box-shadow: var(--shadow);
+    }
+
+    .about-content h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      line-height: 1.14;
+      letter-spacing: -1.3px;
+      margin-bottom: 22px;
+    }
+
+    .about-content > p {
+      color: var(--muted);
+      margin-bottom: 28px;
+      font-size: 17px;
+    }
+
+    .check-list {
+      list-style: none;
+      display: grid;
+      gap: 16px;
+    }
+
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: #405348;
+      font-weight: 600;
+    }
+
+    .check-list span {
+      flex: 0 0 26px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--green);
+      font-size: 14px;
+    }
+
+    .programs {
+      background:
+        linear-gradient(180deg, #f7fbf8 0%, #edf8f1 100%);
+    }
+
+    .program-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .program-card::before {
+      content: "";
+      position: absolute;
+      right: -50px;
+      top: -50px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: rgba(184, 233, 134, 0.28);
+    }
+
+    .process {
+      background: white;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      counter-reset: step;
+    }
+
+    .step {
+      position: relative;
+      padding: 30px 24px;
+      border-radius: var(--radius);
+      background: #f8fcf9;
+      border: 1px solid rgba(31, 143, 95, 0.11);
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: "0" counter(step);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 15px;
+      margin-bottom: 22px;
+      color: white;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--green), #5acb82);
+    }
+
+    .step h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .cta {
+      padding: 86px 0;
+      color: white;
+      background:
+        linear-gradient(135deg, rgba(15, 95, 60, 0.95), rgba(31, 143, 95, 0.88)),
+        url("https://images.unsplash.com/photo-1492496913980-501348b61469?auto=format&fit=crop&w=1400&q=80") center/cover;
+    }
+
+    .cta-box {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .cta h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      letter-spacing: -1.4px;
+      line-height: 1.12;
+      margin-bottom: 16px;
+    }
+
+    .cta p {
+      color: rgba(255, 255, 255, 0.88);
+      max-width: 720px;
+      font-size: 17px;
+    }
+
+    .cta .btn-secondary {
+      color: var(--green-dark);
+      background: white;
+    }
+
+    footer {
+      padding: 58px 0 24px;
+      background: #10261a;
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 34px;
+      margin-bottom: 42px;
+    }
+
+    footer .logo {
+      color: white;
+      margin-bottom: 18px;
+    }
+
+    footer h3 {
+      color: white;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+
+    footer ul {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    footer a {
+      color: rgba(255, 255, 255, 0.68);
+      transition: 0.25s;
+    }
+
+    footer a:hover {
+      color: white;
+    }
+
+    .copyright {
+      padding-top: 22px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .about-grid,
+      .cta-box {
+        grid-template-columns: 1fr;
+      }
+
+      .visual-card {
+        min-height: 460px;
+      }
+
+      .cards-grid,
+      .steps,
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cta-box {
+        text-align: center;
+      }
+
+      .cta p {
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 760px) {
+      nav {
+        height: 70px;
+      }
+
+      .nav-links,
+      .nav-actions .btn-primary {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .nav-links.open {
+        display: flex;
+        position: absolute;
+        top: 70px;
+        left: 20px;
+        right: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+        padding: 22px;
+        border-radius: 18px;
+        background: white;
+        box-shadow: var(--shadow);
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 122px;
+      }
+
+      .hero h1 {
+        letter-spacing: -1.4px;
+      }
+
+      .hero-metrics,
+      .cards-grid,
+      .steps,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      section {
+        padding: 72px 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
-                    <div class="logo-text">Code<span>Flow</span></div>
-                </div>
-                
-                <ul class="nav-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#benefits">Benefits</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#">Resources</a></li>
-                </ul>
-                
-                <button class="cta-button">Start Free Trial</button>
-                <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
-            </nav>
-        </div>
-    </header>
+  <header>
+    <div class="container">
+      <nav>
+        <a class="logo" href="#top" aria-label="GreenFuture 首页">
+          <span class="logo-mark">♻</span>
+          Green<span>Future</span>
+        </a>
 
-    <!-- Hero Section -->
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about">环保理念</a></li>
+          <li><a href="#solutions">解决方案</a></li>
+          <li><a href="#programs">绿色行动</a></li>
+          <li><a href="#process">参与方式</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a class="btn btn-primary" href="#contact">加入行动</a>
+          <button class="menu-btn" id="menuBtn" aria-label="打开菜单">☰</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
     <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Build Apps Faster With <span>Visual Development</span></h1>
-                    <p>CodeFlow empowers teams to create enterprise-grade applications with minimal coding. Drag, drop, and connect components to build powerful web and mobile apps in record time.</p>
-                    <div class="hero-buttons">
-                        <button class="cta-button">Start Building Free</button>
-                        <button class="secondary-button">Watch Demo</button>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="CodeFlow Platform Interface">
-                </div>
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow">🌱 绿色生活，从每一次选择开始</div>
+            <h1>让环保成为一种 <span>更自然的生活方式</span></h1>
+            <p>
+              GreenFuture 致力于推广低碳生活、资源循环和生态保护。我们通过可持续方案、社区行动和环保教育，帮助个人与企业共同减少环境负担。
+            </p>
+            <div class="hero-buttons">
+              <a class="btn btn-primary" href="#solutions">查看环保方案</a>
+              <a class="btn btn-secondary" href="#about">了解我们的使命</a>
             </div>
+
+            <div class="hero-metrics">
+              <div class="metric">
+                <strong>35%</strong>
+                <small>家庭可通过节能习惯减少浪费</small>
+              </div>
+              <div class="metric">
+                <strong>10k+</strong>
+                <small>社区环保行动参与人次</small>
+              </div>
+              <div class="metric">
+                <strong>24h</strong>
+                <small>从今天开始改变生活方式</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="visual-card" aria-label="绿色植物环保视觉图">
+            <div class="floating-badge">Eco Friendly</div>
+            <div class="impact-panel">
+              <h3>用更少的浪费，创造更好的未来</h3>
+              <ul class="impact-list">
+                <li>✓ 减少一次性用品使用，提升资源利用率</li>
+                <li>✓ 推动绿色采购与低碳办公</li>
+                <li>✓ 让环保行为可执行、可坚持、可传播</li>
+              </ul>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Powerful Features for Rapid Development</h2>
-                <p>CodeFlow provides all the tools you need to build, deploy, and scale applications without writing extensive code.</p>
+    <section class="about" id="about">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-image" aria-label="森林环保图片"></div>
+          <div class="about-content">
+            <div class="section-head" style="text-align:left;margin:0 0 20px;">
+              <span class="tag">OUR MISSION</span>
+              <h2>我们相信，可持续不是口号，而是每一天的行动。</h2>
             </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-th-large"></i>
-                    </div>
-                    <h3>Visual Builder</h3>
-                    <p>Drag and drop UI components to design responsive interfaces. Connect data sources with simple point-and-click actions.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>Database Integration</h3>
-                    <p>Connect to any data source with built-in connectors. Automatically generate CRUD operations without writing SQL.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Cross-Platform</h3>
-                    <p>Build once, deploy everywhere. Generate applications for web, iOS, and Android from a single visual design.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Extensible with Code</h3>
-                    <p>Add custom functionality with JavaScript when needed. Our platform doesn't limit your creativity or complexity.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Enterprise Security</h3>
-                    <p>Built-in authentication, authorization, and data encryption. SOC2 compliant with enterprise-grade security features.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>One-Click Deployment</h3>
-                    <p>Deploy to cloud or on-premises with a single click. Automatic scaling and monitoring included.</p>
-                </div>
-            </div>
+            <p>
+              环保并不一定意味着复杂或高成本。真正有效的改变，来自生活方式、企业运营和社会协作中的每一个小决定。我们希望把环保变得更清晰、更美观，也更容易落地。
+            </p>
+            <ul class="check-list">
+              <li><span>✓</span>推广低碳出行、节能用电和减少浪费的生活习惯</li>
+              <li><span>✓</span>为企业提供绿色办公、环保包装和资源循环建议</li>
+              <li><span>✓</span>组织社区清洁、植树活动与环保知识传播</li>
+              <li><span>✓</span>鼓励消费者选择更负责任的产品和服务</li>
+            </ul>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Benefits Section -->
-    <section class="benefits" id="benefits">
-        <div class="container">
-            <div class="section-title">
-                <h2>Why Choose CodeFlow?</h2>
-                <p>Join thousands of companies accelerating their digital transformation with low-code development.</p>
-            </div>
-            
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>10x Faster Development</h3>
-                    <p>Build applications in days instead of months with visual development tools.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <h3>Reduce Costs by 70%</h3>
-                    <p>Lower development and maintenance costs with fewer resources required.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Citizen Developers</h3>
-                    <p>Enable business users to build solutions with minimal IT assistance.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Scale Effortlessly</h3>
-                    <p>From prototype to enterprise-scale applications with the same platform.</p>
-                </div>
-            </div>
+    <section id="solutions">
+      <div class="container">
+        <div class="section-head">
+          <span class="tag">SUSTAINABLE SOLUTIONS</span>
+          <h2>让环保行动变得简单、清晰、可执行</h2>
+          <p>从个人生活到企业运营，我们提供四个核心方向，帮助更多人以低门槛参与绿色转型。</p>
         </div>
+
+        <div class="cards-grid">
+          <article class="card">
+            <div class="icon">🌿</div>
+            <h3>低碳生活</h3>
+            <p>减少不必要消费，选择可重复使用产品，养成节电、节水、少塑料的日常习惯。</p>
+          </article>
+          <article class="card">
+            <div class="icon">🔋</div>
+            <h3>节能减排</h3>
+            <p>优化照明、空调、办公设备和运输方式，降低能源浪费，提高整体效率。</p>
+          </article>
+          <article class="card">
+            <div class="icon">♻️</div>
+            <h3>资源循环</h3>
+            <p>推动垃圾分类、旧物再利用、环保包装和循环供应链，让资源被更充分使用。</p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>Trusted by Industry Leaders</h2>
-                <p>See what our customers have to say about their experience with CodeFlow.</p>
-            </div>
-            
-            <div class="testimonial-slider">
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">SC</div>
-                        <div class="author-info">
-                            <h4>Sarah Chen</h4>
-                            <p>CTO, TechGrowth Inc.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section class="programs" id="programs">
+      <div class="container">
+        <div class="section-head">
+          <span class="tag">GREEN PROGRAMS</span>
+          <h2>适合社区、学校与企业的环保项目</h2>
+          <p>我们把环保项目设计得更具参与感，让每一次行动都能带来真实改变。</p>
         </div>
+
+        <div class="cards-grid">
+          <article class="card program-card">
+            <div class="icon">🌳</div>
+            <h3>城市植绿计划</h3>
+            <p>联合社区和企业开展植树、绿化养护与城市花园建设，增加城市绿色空间。</p>
+          </article>
+          <article class="card program-card">
+            <div class="icon">🧹</div>
+            <h3>社区清洁行动</h3>
+            <p>组织志愿者参与公园、海岸、街区清洁，减少塑料垃圾对生态环境的影响。</p>
+          </article>
+          <article class="card program-card">
+            <div class="icon">📦</div>
+            <h3>绿色包装升级</h3>
+            <p>帮助企业减少过度包装，选择可回收、可降解或更轻量化的包装方案。</p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section class="pricing" id="pricing">
-        <div class="container">
-            <div class="section-title">
-                <h2>Simple, Transparent Pricing</h2>
-                <p>Choose the plan that fits your needs. All plans include core features with no hidden fees.</p>
-            </div>
-            
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3 class="plan-name">Starter</h3>
-                    <div class="plan-price">$29<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 5 users</li>
-                        <li>10 GB storage</li>
-                        <li>Basic components</li>
-                        <li>Community support</li>
-                        <li>1 production app</li>
-                    </ul>
-                    <button class="secondary-button">Get Started</button>
-                </div>
-                
-                <div class="pricing-card featured">
-                    <div class="featured-badge">Most Popular</div>
-                    <h3 class="plan-name">Professional</h3>
-                    <div class="plan-price">$89<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 25 users</li>
-                        <li>100 GB storage</li>
-                        <li>All components</li>
-                        <li>Priority support</li>
-                        <li>10 production apps</li>
-                        <li>Custom branding</li>
-                    </ul>
-                    <button class="cta-button">Try Free for 14 Days</button>
-                </div>
-                
-                <div class="pricing-card">
-                    <h3 class="plan-name">Enterprise</h3>
-                    <div class="plan-price">Custom</div>
-                    <ul class="plan-features">
-                        <li>Unlimited users</li>
-                        <li>Unlimited storage</li>
-                        <li>All features included</li>
-                        <li>24/7 dedicated support</li>
-                        <li>Unlimited apps</li>
-                        <li>On-premises option</li>
-                    </ul>
-                    <button class="secondary-button">Contact Sales</button>
-                </div>
-            </div>
+    <section class="process" id="process">
+      <div class="container">
+        <div class="section-head">
+          <span class="tag">HOW TO JOIN</span>
+          <h2>四步开启你的环保行动</h2>
+          <p>不需要一次改变所有习惯，从一个小目标开始，也能让绿色影响持续扩大。</p>
         </div>
+
+        <div class="steps">
+          <div class="step">
+            <h3>选择目标</h3>
+            <p>从减少塑料、节能、垃圾分类或绿色采购中选择一个方向。</p>
+          </div>
+          <div class="step">
+            <h3>制定计划</h3>
+            <p>设定简单可执行的周期目标，例如连续 30 天减少一次性杯具。</p>
+          </div>
+          <div class="step">
+            <h3>记录改变</h3>
+            <p>记录节省的资源、减少的浪费，并分享给身边的人一起参与。</p>
+          </div>
+          <div class="step">
+            <h3>持续优化</h3>
+            <p>把短期行动变成长期习惯，让环保成为生活和品牌的一部分。</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2>Start Building Today</h2>
-            <p>Join over 10,000 companies that use CodeFlow to accelerate their application development. No credit card required for the free trial.</p>
-            <button class="cta-button">Get Started for Free</button>
+    <section class="cta" id="contact">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>一起把绿色未来变成现实</h2>
+            <p>无论你是个人、学校、社区还是企业，都可以从今天开始参与环保行动。让我们用更负责任的选择，守护共同的地球。</p>
+          </div>
+          <a class="btn btn-secondary" href="mailto:hello@greenfuture.com">联系我们</a>
         </div>
+      </div>
     </section>
+  </main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <div class="logo">
-                        <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
-                        <div class="logo-text">Code<span>Flow</span></div>
-                    </div>
-                    <p style="margin-top: 20px; color: #aaa;">The leading visual development platform for building enterprise applications with minimal coding.</p>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Product</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Use Cases</a></li>
-                        <li><a href="#">Integrations</a></li>
-                        <li><a href="#">Roadmap</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Tutorials</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Community</a></li>
-                        <li><a href="#">Support</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 CodeFlow. All rights reserved.</p>
-            </div>
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="logo">
+            <span class="logo-mark">♻</span>
+            Green<span>Future</span>
+          </div>
+          <p>专注环保传播、绿色行动和可持续生活方式推广，让更多人参与到保护地球的行动中。</p>
         </div>
-    </footer>
+        <div>
+          <h3>环保方向</h3>
+          <ul>
+            <li><a href="#solutions">低碳生活</a></li>
+            <li><a href="#solutions">节能减排</a></li>
+            <li><a href="#solutions">资源循环</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>项目活动</h3>
+          <ul>
+            <li><a href="#programs">城市植绿</a></li>
+            <li><a href="#programs">社区清洁</a></li>
+            <li><a href="#programs">绿色包装</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>联系我们</h3>
+          <ul>
+            <li>hello@greenfuture.com</li>
+            <li>Shanghai, China</li>
+            <li>Mon - Fri 09:00-18:00</li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">© 2026 GreenFuture. All rights reserved.</div>
+    </div>
+  </footer>
 
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            
-            // Adjust for mobile
-            if (window.innerWidth <= 768) {
-                if (navLinks.style.display === 'flex') {
-                    navLinks.style.flexDirection = 'column';
-                    navLinks.style.position = 'absolute';
-                    navLinks.style.top = '80px';
-                    navLinks.style.left = '0';
-                    navLinks.style.width = '100%';
-                    navLinks.style.backgroundColor = 'white';
-                    navLinks.style.padding = '20px';
-                    navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-                    
-                    const navItems = document.querySelectorAll('.nav-links li');
-                    navItems.forEach(item => {
-                        item.style.margin = '10px 0';
-                    });
-                }
-            }
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    if(window.innerWidth <= 768) {
-                        document.querySelector('.nav-links').style.display = 'none';
-                    }
-                }
-            });
-        });
-        
-        // Simple testimonial slider
-        const testimonials = [
-            {
-                text: "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions.",
-                name: "Sarah Chen",
-                position: "CTO, TechGrowth Inc.",
-                initials: "SC"
-            },
-            {
-                text: "We reduced our app development time by 80% using CodeFlow. The visual interface made it easy for our analysts to build data dashboards without waiting for IT resources.",
-                name: "Marcus Johnson",
-                position: "Director of Operations, DataCorp",
-                initials: "MJ"
-            },
-            {
-                text: "As a non-technical founder, CodeFlow allowed me to build our MVP in just 2 months. I could test ideas quickly and iterate based on user feedback without deep coding knowledge.",
-                name: "Lisa Wang",
-                position: "Founder, StartupLabs",
-                initials: "LW"
-            }
-        ];
-        
-        let currentTestimonial = 0;
-        const testimonialElement = document.querySelector('.testimonial');
-        
-        function rotateTestimonial() {
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-            updateTestimonial();
-        }
-        
-        function updateTestimonial() {
-            const testimonial = testimonials[currentTestimonial];
-            testimonialElement.innerHTML = `
-                <div class="testimonial-text">"${testimonial.text}"</div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">${testimonial.initials}</div>
-                    <div class="author-info">
-                        <h4>${testimonial.name}</h4>
-                        <p>${testimonial.position}</p>
-                    </div>
-                </div>
-            `;
-        }
-        
-        // Auto-rotate testimonials every 5 seconds
-        setInterval(rotateTestimonial, 5000);
-        
-        // CTA button interactions
-        document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('click', function() {
-                alert('Thank you for your interest in CodeFlow! You would be redirected to the signup page in a real implementation.');
-            });
-        });
-        
-        // Pricing card interactions
-        document.querySelectorAll('.pricing-card button').forEach(button => {
-            button.addEventListener('click', function() {
-                const planName = this.closest('.pricing-card').querySelector('.plan-name').textContent;
-                alert(`You selected the ${planName} plan. In a real implementation, you would be redirected to the checkout process.`);
-            });
-        });
-    </script>
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+      });
+    });
+  </script>
 </body>
 </html>
